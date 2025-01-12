@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Typography, Button, Input, Form } from 'antd';
+import {Layout, Typography, Button, Input, Form, Flex} from 'antd';
 import Chat from './Chat';
 
 const { Header, Content } = Layout;
@@ -19,6 +19,10 @@ export default function App() {
         localStorage.setItem('username', values.username);
         setLoggedIn(true);
     };
+    const onLogout = () => {
+        localStorage.removeItem('username');
+        setLoggedIn(false);
+    }
     if (!isLoggedIn) {
         return (
             <Layout style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -47,9 +51,12 @@ export default function App() {
     return (
         <Layout style={{ height: '100vh' }}>
             <Header style={{ background: '#001529' }}>
-                <Title style={{ color: '#fff', margin: 0 }} level={2}>
-                    Простой чат
-                </Title>
+                <Flex direction="column" justify="space-between" alignItems="center">
+                    <Title style={{ color: '#fff', margin: 0 }} level={2}>
+                        WSChat
+                    </Title>
+                    <Button onClick={onLogout}>Сменить имя</Button>
+                </Flex>
             </Header>
             <Content>
                 <Chat username={username} />
