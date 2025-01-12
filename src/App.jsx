@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Layout, Typography, Button, Input, Form } from 'antd';
 import Chat from './Chat';
 
@@ -8,12 +8,17 @@ const { Title } = Typography;
 export default function App() {
     const [username, setUsername] = useState('');
     const [isLoggedIn, setLoggedIn] = useState(false);
-
+    useEffect(() => {
+        if (localStorage.getItem('username')) {
+            setUsername(localStorage.getItem('username'));
+            setLoggedIn(true);
+        }
+    }, [])
     const onFinish = (values) => {
         setUsername(values.username);
+        localStorage.setItem('username', values.username);
         setLoggedIn(true);
     };
-
     if (!isLoggedIn) {
         return (
             <Layout style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
