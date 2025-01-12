@@ -6,7 +6,7 @@ import { WebSocketServer } from 'ws';
 
 import {JSONFilePreset} from "lowdb/node";
 
-const db = await JSONFilePreset('db.json', { messages: [] })
+const db = await JSONFilePreset('db/db.json', { messages: [] })
 
 
 const app = express();
