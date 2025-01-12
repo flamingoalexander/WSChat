@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Card, List, Input, Button, Typography } from 'antd';
+import {Card, List, Input, Button, Typography, Flex} from 'antd';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -57,10 +57,17 @@ function Chat({ username }) {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
-            <Card style={{ maxWidth: 800, margin: '0 auto', height: '80vh', display: 'flex', flexDirection: 'column' }}>
+        <Flex style={{padding: '20px'}} align={"center"} vertical={true}>
+            <Card style={{
+                width: 800,
+                margin: '0 auto',
+                height: '80vh',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'auto'
+            }}>
                 <List
-                    style={{ flex: 1, overflowY: 'auto' }}
+                    style={{flex: 1, overflow: 'auto'}}
                     dataSource={messages}
                     renderItem={(item) => (
                         <List.Item>
@@ -69,8 +76,8 @@ function Chat({ username }) {
                                 description={
                                     <div>
                                         <Text>{item.text}</Text>
-                                        <br />
-                                        <Text type="secondary" style={{ fontSize: '12px' }}>
+                                        <br/>
+                                        <Text type="secondary" style={{fontSize: '12px'}}>
                                             {new Date(item.time).toLocaleTimeString()}
                                         </Text>
                                     </div>
@@ -79,20 +86,20 @@ function Chat({ username }) {
                         </List.Item>
                     )}
                 />
-                <div style={{ marginTop: 'auto' }}>
-                    <TextArea
-                        rows={2}
-                        placeholder="Введите сообщение..."
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onPressEnter={sendMessage}
-                    />
-                    <Button type="primary" block style={{ marginTop: 8 }} onClick={sendMessage}>
-                        Отправить
-                    </Button>
-                </div>
             </Card>
-        </div>
+            <div style={{marginTop: 'auto', width: 800}}>
+                <TextArea
+                    rows={2}
+                    placeholder="Введите сообщение..."
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onPressEnter={sendMessage}
+                />
+                <Button type="primary" block style={{marginTop: 8}} onClick={sendMessage}>
+                    Отправить
+                </Button>
+            </div>
+        </Flex>
     );
 }
 
